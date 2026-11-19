@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CyberShield | Digital Twin Smart City</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Three.js module configuration -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">🛡️</span>
+      <div>
+        <h1>CyberShield</h1>
+        <p>DIGITAL TWIN SECURITY CENTRE</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <span id="cityStatus" class="city-status">
+        CITY PROTECTED
+      </span>
+
+      <button id="soundBtn" class="small-btn">
+        🔇 Sound off
+      </button>
+
+      <button id="helpBtn" class="small-btn">
+        ❔ What is this?
+      </button>
+    </div>
+  </header>
+
+
+  <!-- MAIN DASHBOARD -->
+  <main class="dashboard">
+
+    <!-- INTRODUCTION -->
+    <section class="intro">
+      <div>
+        <span class="eyebrow">INTERACTIVE CYBERSECURITY MODEL</span>
+
+        <h2>Digital Twin – Cybersecure Smart City</h2>
+
+        <p>
+          Explore a virtual smart city, detect simulated cyber incidents
+          and protect essential city services.
+        </p>
+      </div>
+
+      <button id="steps" class="outline-btn">
+        Explore how it works →
+      </button>
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="stats">
+
+      <div class="stat-card">
+        <span>🏙️</span>
+        <div>
+          <small>City Services Online</small>
+          <strong id="onlineCount">05</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <span>🛡️</span>
+        <div>
+          <small>Threats Contained</small>
+          <strong id="blockedCount">00</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <span>⭐</span>
+        <div>
+          <small>Security Score</small>
+          <strong id="score">100<small>/100</small></strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- CITY VISUALIZATION -->
+    <section class="main-grid">
+
+      <div class="panel city-panel">
+
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">LIVE VIRTUAL MODEL</span>
+            <h3>🏙️ Smart City Network</h3>
+          </div>
+
+          <span class="live-indicator">
+            <i></i> SIMULATION
+          </span>
+        </div>
+
+        <div id="stage" class="city-stage">
+
+          <canvas id="cityCanvas"></canvas>
+
+          <div id="loading" class="loading">
+            <span>🏙️</span>
+            <p>Building your virtual city...</p>
+          </div>
+
+        </div>
+
+        <div class="city-footer">
+          <span>🟢 Online</span>
+          <span>🟡 Warning</span>
+          <span>🔴 Offline</span>
+          <span>🖱️ Drag to rotate · Scroll to zoom · Click a building</span>
+        </div>
+
+      </div>
+
+
+      <!-- SELECTED SERVICE -->
+      <aside class="panel service-panel">
+
+        <span class="eyebrow">SERVICE MONITOR</span>
+
+        <h3>Selected Service</h3>
+
+        <div class="selected-service">
+          <div id="selectedIcon" class="service-icon">🏥</div>
+
+          <h2 id="selectedName">Hospital</h2>
+
+          <p id="selectedDesc">
+            Supports emergency and patient-care services.
+          </p>
+
+          <span id="selectedState" class="state online">
+            ONLINE
+          </span>
+        </div>
+
+        <div class="service-note">
+          <span>💡</span>
+          <p>
+            Click any building in the 3D city to inspect its
+            virtual service status.
+          </p>
+        </div>
+
+      </aside>
+
+    </section>
+
+
+    <!-- INCIDENT SIMULATION -->
+    <section class="panel incident-panel">
+
+      <div class="panel-heading">
+        <div>
+          <span class="eyebrow">PRACTICE CYBER DEFENCE</span>
+          <h3>⚠️ Incident Simulation Centre</h3>
+          <p>
+            Select a fictional scenario to see how the city responds.
+          </p>
+        </div>
+
+        <button id="reset" class="outline-btn">
+          ↻ Reset City
+        </button>
+      </div>
+
+
+      <div class="scenario-grid">
+
+        <button class="scenario-card" data-case="traffic">
+          <span>🚦</span>
+          <strong>Traffic Overload</strong>
+          <small>Unusual sample network traffic</small>
+          <b>Start simulation →</b>
+        </button>
+
+        <button class="scenario-card" data-case="ransom">
+          <span>🔒</span>
+          <strong>Ransomware Warning</strong>
+          <small>Unusual sample file changes</small>
+          <b>Start simulation →</b>
+        </button>
+
+        <button class="scenario-card" data-case="login">
+          <span>🪪</span>
+          <strong>Suspicious Login</strong>
+          <small>Unrecognised sample sign-in</small>
+          <b>Start simulation →</b>
+        </button>
+
+        <button class="scenario-card" data-case="network">
+          <span>📡</span>
+          <strong>Network Disruption</strong>
+          <small>Interrupted sample connection</small>
+          <b>Start simulation →</b>
+        </button>
+
+      </div>
+
+
+      <!-- RESPONSE STEPS -->
+      <div class="response-panel">
+
+        <div class="response-heading">
+          <div>
+            <span class="eyebrow">INCIDENT RESPONSE</span>
+            <h3 id="responseTitle">No active incident</h3>
+          </div>
+
+          <span id="responseTag" class="response-tag">
+            STANDING BY
+          </span>
+        </div>
+
+
+        <div class="response-steps">
+
+          <div id="detectStep" class="response-step active">
+            <span>1</span>
+            <div>
+              <b>Detect</b>
+              <small>Identify the incident</small>
+            </div>
+          </div>
+
+          <div id="defendStep" class="response-step">
+            <span>2</span>
+            <div>
+              <b>Defend</b>
+              <small>Contain the incident</small>
+            </div>
+          </div>
+
+          <div id="recoverStep" class="response-step">
+            <span>3</span>
+            <div>
+              <b>Recover</b>
+              <small>Restore the service</small>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="response-content">
+
+          <div id="responseIcon">🛡️</div>
+
+          <p id="responseText">
+            Select a practice scenario to see how a cyber response works.
+          </p>
+
+        </div>
+
+
+        <div class="response-actions">
+
+          <button id="defend" class="primary-btn" disabled>
+            🛡️ Apply Defence
+          </button>
+
+          <button id="restore" class="success-btn" disabled>
+            ♻️ Restore Service
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACTIVITY LOG -->
+    <section class="panel activity-panel">
+
+      <div class="panel-heading">
+        <div>
+          <span class="eyebrow">CONTROL CENTRE RECORD</span>
+          <h3>📋 City Activity Log</h3>
+        </div>
+
+        <span class="live-indicator">
+          ● LOCAL LOG
+        </span>
+      </div>
+
+      <ul id="log" class="activity-list"></ul>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        <b>🛡️ CyberShield – Digital Twin Smart City</b>
+        <p>Learn. Detect. Defend. Recover.</p>
+      </div>
+
+      <p>
+        Educational simulation using fictional sample data.
+        Not connected to real city infrastructure.
+      </p>
+    </footer>
+
+  </main>
+
+
+  <!-- POPUP -->
+  <div id="overlay" class="modal-overlay" hidden>
+
+    <div class="modal">
+
+      <button id="close" class="modal-close">
+        ✕
+      </button>
+
+      <span class="eyebrow">CYBERSHIELD LEARNING CENTRE</span>
+
+      <h2 id="modalTitle">About this project</h2>
+
+      <div id="modalText" class="modal-text"></div>
+
+      <button id="modalOk" class="primary-btn">
+        Got it!
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- NOTIFICATION -->
+  <div id="toast" class="toast"></div>
+
+
+  <!-- CONFETTI IS CREATED BY JAVASCRIPT -->
+
+
+  <!-- MAIN JAVASCRIPT -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>
